@@ -5,5 +5,5 @@ from .views import PostDetailView, PostListView, CategoryListView
 urlpatterns = [
     path('', PostListView.as_view(), name='post-list'),
     path('<slug:slug>/', PostDetailView.as_view(), name='post-detail'),
-    # path('comment/', require_POST(CommentView.as_view()), name='comment-create'),
+    path('category/<category_slug>/', CategoryListView.as_view(), name='category-post-list'),
 ]

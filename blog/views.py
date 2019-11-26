@@ -45,8 +45,14 @@ class PostDetailView(FormMixin, HitCountDetailView):
         return super().form_valid(form)
 
 
-class CategoryListView(FormMixin, DetailView):
-    pass
+class CategoryListView(ListView):
+    context_object_name = 'posts'
+    template_name = 'category_post_list.html'
+    def get_queryset(self):
+        queryset = Post.objects.filter(
+            categories__name__contains=self.kwargs['category_slug']
+        ).order_by('-created_on')
+        return queryset
     # form_class = CommentForm
     # model = Post
 
