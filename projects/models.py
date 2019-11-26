@@ -6,10 +6,11 @@ class Project(models.Model):
     description = models.TextField()
     website = models.URLField()
     image = models.ImageField(upload_to='projects/')
+    technology = models.CharField(max_length=20)
     completed = models.DateField()
 
     def __str__(self):
         return self.title
 
     def get_absolute_url(self):
-        return reverse('project-detail', {'pk': self.pk})
+        return reverse('project-detail', args={'pk': self.pk})
