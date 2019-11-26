@@ -41,6 +41,9 @@ INSTALLED_APPS = [
 
     'accounts',
     'projects',
+    'blog',
+
+    'hitcount',
 ]
 
 MIDDLEWARE = [

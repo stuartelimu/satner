@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+{% load hitcount_tags %}
+
+{{post.title}}
+
+<p>Views: {% get_hit_count for post %}</p>
+
+{% for comment in comments %}
+<p>{{comment.name}}</p>
+{% endfor %}
+
+<form action="." method="post">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <input type="submit" value="Comment">
+</form>
+
+{% endblock content %}
