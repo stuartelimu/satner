@@ -12,6 +12,12 @@ class PostListView(ListView):
     context_object_name = 'posts'
     queryset = Post.objects.all().order_by('-created_on')
 
+    def get_context_data(self, **kwargs):
+        context = super(PostListView, self).get_context_data(**kwargs)
+        # context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
+        context['categories'] = Category.objects.all()
+        return context
+
 
 class PostDetailView(FormMixin, HitCountDetailView):
     form_class = CommentForm
@@ -23,6 +29,8 @@ class PostDetailView(FormMixin, HitCountDetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(active=True, post=self.object)
+        # context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
+        context['categories'] = Category.objects.all()
         return context
 
     def get_success_url(self):
@@ -53,23 +61,7 @@ class CategoryListView(ListView):
             categories__name__contains=self.kwargs['category_slug']
         ).order_by('-created_on')
         return queryset
-    # form_class = CommentForm
-    # model = Post
-
-    # def get_success_url(self):
-    #     return reverse('post-detail', kwargs={'slug': self.object.slug})
-
-    # def post(self, request, *args, **kwargs):
-    #     self.post = self.get_object()
-    #     form = self.get_form()
-    #     if form.is_valid():
-    #         return self.form_valid(form)
-    #     else:
-    #         return self.form_invalid(form)
-
-    # def form_valid(self, form):
-    #     return super().form_valid(form)
-
+    
     
 
 
