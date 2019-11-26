@@ -1,3 +1,11 @@
-from django.shortcuts import render
+from django.views.generic import ListView, DetailView
 
-# Create your views here.
+from .models import Project
+
+class ProjectListView(ListView):
+    model = Project
+
+
+class ProjectDetailView(DetailView):
+    model = Project
+    context_object_name = 'project'

@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<ul>
+{% for project in object %}
+
+  <li><a href="{{project.get_absolute_url}}">{{project.title}}</a></li>
+
+{% endfor %}
+</ul>
+
+{% endblock content %}
