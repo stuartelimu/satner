@@ -61,6 +61,11 @@ class CategoryListView(ListView):
             categories__name__contains=self.kwargs['category_slug']
         ).order_by('-created_on')
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryListView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
     
     
 
