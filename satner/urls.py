@@ -20,6 +20,8 @@ from django.views.generic import TemplateView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')),
+    path('services/', TemplateView.as_view(template_name='services.html'), name='services'),
+    path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
     path('projects/', include('projects.urls')),
     path('blog/', include('blog.urls')),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
