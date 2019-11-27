@@ -6,6 +6,7 @@ from django.urls import reverse
 
 from .models import Post, Category, Comment
 from .forms import CommentForm
+from marketing.forms import NewsLetterSignUpForm
 
 class PostListView(ListView):
     model = Post
@@ -16,6 +17,7 @@ class PostListView(ListView):
         context = super(PostListView, self).get_context_data(**kwargs)
         # context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['categories'] = Category.objects.all()
+        context['form'] = NewsLetterSignUpForm()
         return context
 
 
@@ -31,6 +33,7 @@ class PostDetailView(FormMixin, HitCountDetailView):
         context['comments'] = Comment.objects.filter(active=True, post=self.object)
         # context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['categories'] = Category.objects.all()
+        context['form'] = NewsLetterSignUpForm()
         return context
 
     def get_success_url(self):
@@ -65,6 +68,7 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        context['form'] = NewsLetterSignUpForm()
         return context
     
     

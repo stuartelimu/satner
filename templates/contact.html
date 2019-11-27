@@ -12,8 +12,8 @@
                 <div class="banner_content text-center">
                     <h2>Contact Us</h2>
                     <div class="page_link">
-                        <a href="index.html">Home</a>
-                        <a href="contact.html">Contact</a>
+                        <a href="/">Home</a>
+                        <a href="{% url 'contact' %}">Contact</a>
                     </div>
                 </div>
             </div>
@@ -45,7 +45,8 @@
                     </div>
                 </div>
                 <div class="col-lg-9">
-                    <form class="row contact_form" action="contact_process.php" method="post" id="contactForm" novalidate="novalidate">
+                    <form class="row contact_form" action="." method="post" id="contactForm" novalidate="novalidate">
+                        {% csrf_token %}
                         <div class="col-md-6">
                             <div class="form-group">
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name">
@@ -70,6 +71,7 @@
                     </form>
                 </div>
             </div>
+            {% comment %}
             <div id="mapBox" class="mapBox" 
                 data-lat="40.701083" 
                 data-lon="-74.1522848" 
@@ -78,6 +80,7 @@
                 data-mlat="40.701083"
                 data-mlon="-74.1522848">
             </div>
+            {% endcomment %}
         </div>
     </section>
     <!--================Contact Area =================-->
