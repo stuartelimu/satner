@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'projects',
     'blog',
+    'marketing',
 
     'hitcount',
 ]
@@ -142,3 +143,6 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
     'accounts.authentication.EmailAuthBackend',
 ]
+
+SEND_GRID_API_KEY = config('SEND_GRID_API_KEY')
+SEND_GRID_LIST_ID = config('SEND_GRID_LIST_ID')
