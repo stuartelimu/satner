@@ -2,6 +2,16 @@ from django.views.generic.base import TemplateView
 from .forms import ContactForm
 from django.views.generic.edit import FormView
 from marketing.forms import NewsLetterSignUpForm
+from projects.models import Project
+
+class HomePageView(TemplateView):
+
+    template_name = "index.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['projects'] = Project.objects.all()[:6]
+        return context
 
 class AboutPageView(TemplateView):
 

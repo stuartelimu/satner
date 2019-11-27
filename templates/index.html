@@ -12,11 +12,11 @@
 					<div class="col-lg-7">
 						<div class="banner_content">
 							<h3 class="text-uppercase">Hell0</h3>
-							<h1 class="text-uppercase">I am rahi satner</h1>
-							<h5 class="text-uppercase">senior wordpress developer</h5>
+							<h1 class="text-uppercase">I am stuart elimu</h1>
+							<h5 class="text-uppercase">software developer</h5>
 							<div class="d-flex align-items-center">
-								<a class="primary_btn" href="#"><span>Hire Me</span></a>
-								<a class="primary_btn tr-bg" href="#"><span>Get CV</span></a>
+								<a class="primary_btn" href="/contact/"><span>Hire Me</span></a>
+								<a class="primary_btn tr-bg" href="#"><span>View CV</span></a>
 							</div>
 						</div>
 					</div>
@@ -55,7 +55,7 @@
 							is in beast beginning signs open god you're gathering whose gathered cattle let. 
 							Creature whales fruit unto meat the life beginning all in under give two.
 						</p>
-						<a class="primary_btn" href="#"><span>Download CV</span></a>
+						{% comment %} <a class="primary_btn" href="#"><span>Download CV</span></a> {% endcomment %}
 					</div>
 				</div>
 			</div>
@@ -136,16 +136,16 @@
 				</div>
 				<div class="offset-lg-2 col-lg-4 col-md-6">
 					<div class="client-info">
-						<div class="d-flex mb-50">
+						{% comment %} <div class="d-flex mb-50">
 							<span class="lage">10</span>
 							<span class="smll">Years Experience Working</span>
-						</div>
+						</div> {% endcomment %}
 						<div class="call-now d-flex">
 							<div>
 								<span class="fa fa-phone"></span>
 							</div>
 							<div class="ml-15">
-								<p>call us now</p>
+								<p>get in touch</p>
 								<h3>(+1)-800-555-6789</h3>
 							</div>
 						</div>
@@ -215,7 +215,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="filters portfolio-filter">
+			{% comment %} <div class="filters portfolio-filter">
 				<ul>
 					<li class="active" data-filter="*">all</li>
 					<li data-filter=".popular">popular</li>
@@ -223,27 +223,29 @@
 					<li data-filter=".following">following</li>
 					<li data-filter=".upcoming">upcoming</li>
 				</ul>
-			</div>
+			</div> {% endcomment %}
 	
 			<div class="filters-content">
 				<div class="row portfolio-grid justify-content-center">
+					{% for project in projects %}
 					<div class="col-lg-4 col-md-6 all latest">
 						<div class="portfolio_box">
 							<div class="single_portfolio">
-								<img class="img-fluid w-100" src="{% static 'img/portfolio/p1.jpg' %}" alt="">
+								<img class="img-fluid w-100" src="{{project.image.url}}" alt="">
 								<div class="overlay"></div>
-								<a href="{% static 'img/portfolio/p1.jpg' %}" class="img-gal">
+								<a href="{{project.image.url}}" class="img-gal">
 									<div class="icon">
 										<span class="lnr lnr-cross"></span>
 									</div>
 								</a>
 							</div>
 							<div class="short_info">
-								<h4><a href="portfolio-details.html">minimal design</a></h4>
-								<p>Animated, portfolio</p>
+								<h4><a href="{% url 'project-detail' project.pk %}">{{project.title}}</a></h4>
+								<p>{{project.technology}}</p>
 							</div>
 						</div>
 					</div>
+					{% endfor %}
 					{% comment %}
 					<div class="col-lg-4 col-md-6 all popular">
 						<div class="portfolio_box">
