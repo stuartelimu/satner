@@ -25,5 +25,6 @@ urlpatterns = [
     path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact'),
     path('projects/', include('projects.urls')),
     path('blog/', include('blog.urls')),
+    path('newsletter/', include('marketing.urls')),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
 ]

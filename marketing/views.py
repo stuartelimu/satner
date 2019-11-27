@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 import json
 import requests
@@ -18,7 +19,7 @@ def subscribe(email):
     payload = {"list_ids": [LIST_ID], "contacts": [{"email": email}]}
     headers = {'authorization': f'Bearer {API_KEY}'}
 
-    response = requests.request("PUT", url, data=payload, headers=headers)
+    response = requests.put(url, json=payload, headers=headers)
 
     return response.status_code
 
@@ -30,7 +31,7 @@ def email_list_signup(request):
             if email_signup_qs.exists():
                 messages.error(request, "You are already subscribed")
             else:
-                subscribe(form.instance.email)
+                print(subscribe(form.instance.email))
                 form.save()
                 messages.info(request, "Thank you for subscribing to our newsletter")
     return HttpResponseRedirect(request.META.get("HTTP_REFERER"))
