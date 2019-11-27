@@ -22,6 +22,7 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='index.html')),
     path('services/', TemplateView.as_view(template_name='services.html'), name='services'),
     path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
+    path('contact/', TemplateView.as_view(template_name='contact.html'), name='contact'),
     path('projects/', include('projects.urls')),
     path('blog/', include('blog.urls')),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
