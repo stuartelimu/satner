@@ -36,7 +36,7 @@
                                 <div class="blog_info text-right">
                                     <div class="post_tag">
                                         {% for category in post.categories.all %}
-                                        <a href="{{% url 'category-post-list' category.name %}}">{{ category.name }},</a>
+                                        <a href="{% url 'category-post-list' category.name %}">{{ category.name }},</a>
                                         
                                         {% endfor %}
                                     </div>
