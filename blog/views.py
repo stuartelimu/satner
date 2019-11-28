@@ -31,7 +31,7 @@ class PostDetailView(FormMixin, HitCountDetailView):
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(active=True, post=self.object)
-        # context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
+        context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['categories'] = Category.objects.all()
         context['form'] = NewsLetterSignUpForm()
         return context

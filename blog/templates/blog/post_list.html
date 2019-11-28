@@ -34,7 +34,7 @@
                                 <div class="blog_info text-right">
                                     <div class="post_tag">
                                         {% for category in post.categories.all %}
-                                        <a href="{% url 'category-post-list' category.name %}">{{ category.name }},</a>
+                                        <a href="{{{% url 'category-post-list' category.name %}}}">{{ category.name }},</a>
                                         
                                         {% endfor %}
                                     </div>
@@ -48,7 +48,7 @@
                             </div>
                             <div class="col-md-9">
                                 <div class="blog_post">
-                                    <img src="{% static 'img/blog/main-blog/m-blog-1.jpg' %}" alt="">
+                                    <img src="{{post.thumbnail.url}}" alt="">
                                     <div class="blog_details">
                                         <a href="{% url 'post-detail' post.slug %}"><h2>{{post.title}}</h2></a>
                                         <p>MCSE boot camps have its supporters and its detractors. Some people do not understand why you should have to spend money on boot camp when you can get the MCSE study materials yourself at a fraction.</p>
