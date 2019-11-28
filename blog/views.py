@@ -15,7 +15,7 @@ class PostListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
-        # context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
+        context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['categories'] = Category.objects.all()
         context['form'] = NewsLetterSignUpForm()
         return context
@@ -68,6 +68,7 @@ class CategoryListView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CategoryListView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['form'] = NewsLetterSignUpForm()
         return context
     

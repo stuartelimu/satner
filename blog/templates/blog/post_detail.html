@@ -35,8 +35,9 @@
                         <div class="col-lg-12">
                             <div class="feature-img">
                                 <img class="img-fluid" src="{{post.thumbnail.url}}" alt="">
-                                <small>{{post.thumbnail_link}}</small>
+                                
                             </div>
+                            <small class="mt-2 row justify-content-center">{{post.thumbnail_link}}</small>
 
                         </div>
                         <div class="col-lg-3  col-md-3">
@@ -206,10 +207,11 @@
                             <h3 class="widget_title">Popular Posts</h3>
                             {% for post in popular_posts %}
                             <div class="media post_item">
-                                <img src="img/blog/popular-post/post1.jpg" alt="post">
-                                <div class="media-body">
-                                    <a href="blog-details.html"><h3>{{post.title}}</h3></a>
-                                    <p>{{post.created_on.timesince}}</p>
+                                <img class="col-4 img-fluid" src="{{ post.thumbnail.url }}" alt="post">
+                                
+                                <div class="media-body col-8">
+                                    <a href="{% url 'post-detail' post.slug %}"><h3>{{post.title}}</h3></a>
+                                    <p>{{post.created_on|timesince}}</p>
                                 </div>
                             </div>
                             {% endfor %}
