@@ -4,6 +4,8 @@
 
 {% load hitcount_tags %}
 
+{% load post_tags %}
+
 {% block content %}
 
 <!--================ Start Banner Area =================-->
@@ -57,9 +59,7 @@
                                     <a href="{% url 'post-detail' post.slug %}">
                                         <h2>{{post.title}}</h2>
                                     </a>
-                                    <p>MCSE boot camps have its supporters and its detractors. Some people do not
-                                        understand why you should have to spend money on boot camp when you can get the
-                                        MCSE study materials yourself at a fraction.</p>
+                                    {{ post.body|markdown|truncatewords_html:36 }}
                                     <a href="{% url 'post-detail' post.slug %}" class="primary_btn"><span>View
                                             More</span></a>
                                 </div>
