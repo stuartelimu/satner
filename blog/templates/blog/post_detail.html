@@ -6,6 +6,15 @@
 
 {% load post_tags %}
 
+{% block meta %}
+  <meta content="" name="description">
+  <meta property="og:title" content="{{ post.title }}"/>
+  <meta property="og:url" content="{% url 'post-detail' post.slug %}" />
+  <meta property="og:description" content="{{ post.body|markdown|truncatewords_html:20 }}">
+  <meta property="og:image" content="{{ post.thumbnail.url }}">
+  <meta property="og:type" content="article" />
+{% endblock meta %}
+
 {% block content %}
 
 

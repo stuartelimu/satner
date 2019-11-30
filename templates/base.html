@@ -7,7 +7,17 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="{% static 'img/favicon.png' %}" type="image/png">
-  <title>Stue Portfolio</title>
+  <title>Stue's Portfolio</title>
+  <meta content="" name="keywords">
+  {% block meta %}
+  <meta content="" name="description">
+  <meta property="og:title" content="Stue's Portfolio"/>
+  <meta property="og:url" content="stuartelimu.me" />
+  <meta property="og:description" content="Stue's Portfolio">
+  <meta property="og:image" content="{% static 'img/banner/home-right.png' %}">
+  <meta property="og:type" content="website" />
+  {% endblock meta %}
+  
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
 	<link rel="stylesheet" href="{% static 'vendors/linericon/style.css' %}">
