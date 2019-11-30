@@ -12,6 +12,7 @@ class PostListView(ListView):
     model = Post
     context_object_name = 'posts'
     queryset = Post.objects.all().order_by('-created_on')
+    paginate_by = 6
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
