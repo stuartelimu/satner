@@ -7,12 +7,12 @@
 {% load post_tags %}
 
 {% block meta %}
-  <meta content="" name="description">
+  <meta content="" name="description" />
   <meta property="og:title" content="{{ post.title }}"/>
   <meta property="og:url" content="{% url 'post-detail' post.slug %}" />
-  <meta property="og:description" content="{{ post.body|markdown|truncatewords_html:20 }}">
-  <meta property="og:image" content="{{ post.thumbnail.url }}">
-  <meta property="og:type" content="article" />
+  <meta property="og:description" content="{{ post.body|markdown|truncatewords_html:20 }}"/>
+  <meta property="og:image" content="{{ post.thumbnail.url }}" />
+  <meta property="og:type" content="article"/>
 {% endblock meta %}
 
 {% block content %}
@@ -46,7 +46,7 @@
                                 <img class="img-fluid" src="{{post.thumbnail.url}}" alt="">
                                 
                             </div>
-                            <small class="mt-2 row justify-content-center">{{post.thumbnail_link}}</small>
+                            <small class="mt-2 row justify-content-center">{% if post.thumbnail_link %}{{post.thumbnail_link}}{% endif %}</small>
 
                         </div>
                         <div class="col-lg-3  col-md-3">
@@ -93,7 +93,7 @@
                             <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
                                 {% if post.previous_post %}
                                 <div class="thumb">
-                                    <a href="{% url 'post-detail' post.previous_post.slug %}"><img class="img-fluid" src="img/blog/prev.jpg" alt=""></a>
+                                    <a href="{% url 'post-detail' post.previous_post.slug %}"><img class="img-fluid" src="{{post.previous_post.thumbnail}}" alt=""></a>
                                 </div>
                                 <div class="arrow">
                                     <a href="{% url 'post-detail' post.previous_post.slug %}"><span class="lnr text-white lnr-arrow-left"></span></a>
@@ -114,7 +114,7 @@
                                     <a href="{% url 'post-detail' post.next_post.slug %}"><span class="lnr text-white lnr-arrow-right"></span></a>
                                 </div>
                                 <div class="thumb">
-                                    <a href="{% url 'post-detail' post.next_post.slug %}"><img class="img-fluid" src="img/blog/next.jpg" alt=""></a>
+                                    <a href="{% url 'post-detail' post.next_post.slug %}"><img class="img-fluid" src="{{post.next_post.thumbnail}}" alt=""></a>
                                 </div>	
                                 {% endif %}							
                             </div>									
