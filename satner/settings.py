@@ -185,5 +185,6 @@ else:
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+ACME_CHALLENGE_CONTENT = config('ACME_CHALLENGE_CONTENT')
 
 django_heroku.settings(locals())

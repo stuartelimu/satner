@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path, include
-from .views import AboutPageView, ServicesPageView, ContactView, HomePageView
+from .views import AboutPageView, ServicesPageView, ContactView, HomePageView, acme_challenge
 from django.views.generic import TemplateView
 
 urlpatterns = [
@@ -31,6 +31,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('newsletter/', include('marketing.urls')),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
+    path('.well-known/acme-challenge/.', acme_challenge, name='acme_challenge'),
 ]
 
 if settings.DEBUG:

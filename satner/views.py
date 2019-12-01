@@ -3,6 +3,8 @@ from .forms import ContactForm
 from django.views.generic.edit import FormView
 from marketing.forms import NewsLetterSignUpForm
 from projects.models import Project
+from django.http import HttpResponse
+from django.conf import settings
 
 class HomePageView(TemplateView):
 
@@ -43,3 +45,6 @@ class ContactView(FormView):
         # It should return an HttpResponse.
         form.send_email()
         return super().form_valid(form)
+
+def acme_challenge(request):
+    return HttpResponse(settings.ACME_CHALLENGE_CONTENT)
