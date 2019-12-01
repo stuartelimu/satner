@@ -31,7 +31,7 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('newsletter/', include('marketing.urls')),
     path('hitcount/', include(('hitcount.urls', 'hitcount'), namespace='hitcount')),
-    path('.well-known/acme-challenge/.', acme_challenge, name='acme_challenge'),
+    path('.well-known/acme-challenge/', acme_challenge, name='acme_challenge'),
 ]
 
 if settings.DEBUG:
