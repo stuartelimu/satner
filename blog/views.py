@@ -8,12 +8,7 @@ from .models import Post, Category, Comment
 from .forms import CommentForm
 from marketing.forms import NewsLetterSignUpForm
 
-import bs4
-import requests
 
-
-WPM = 200
-WORD_LENGTH = 5
 
 def extract_text(url):
     html = requests.get(url).content
@@ -45,13 +40,12 @@ def estimate_reading_time(url):
     total_words = count_words_in_text(filtered_text, WORD_LENGTH)
     return total_words/WPM
 
-def get_article_reading_time(request):
-    object_list = Post.objects.all().order_by('-created_on')
-    for obj in object_list:
-        # my_post = get_object_or_404(Post, id=1, status='published')
-        post_url = request.build_absolute_uri(obj.get_absolute_url())
-        reading_time = round(estimate_reading_time(post_url))
-        return({obj.pk: reading_time})
+# def get_article_reading_time(request):
+#     object_list = Post.objects.all().order_by('-created_on')
+#     for obj in object_list:
+#         post_url = request.build_absolute_uri(obj.get_absolute_url())
+#         reading_time = round(estimate_reading_time(post_url))
+#         return({obj.pk: reading_time})
 
 
 
@@ -78,7 +72,7 @@ class PostDetailView(FormMixin, HitCountDetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
-        context['reading_time'] = round(estimate_reading_time(self.request.build_absolute_uri(self.object.get_absolute_url())))
+        # context['reading_time'] = round(estimate_reading_time(self.request.build_absolute_uri(self.object.get_absolute_url())))
         context['comments'] = Comment.objects.filter(active=True, post=self.object)
         # context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['categories'] = Category.objects.all()

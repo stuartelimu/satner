@@ -62,7 +62,7 @@
                                     <li><a href="#">{{post.created_on|date}}<i class="lnr lnr-calendar-full"></i></a></li>
                                     <li><a href="#">{% get_hit_count for post %} Views<i class="lnr lnr-eye"></i></a></li>
                                     <li><a href="#">{{ post.comments.count }} Comments<i class="lnr lnr-bubble"></i></a></li>
-                                    <li><a href="#">{{ reading_time }} Minute{{ reading_time|pluralize }}<i class="lnr lnr-clock"></i></a></li>
+                                    <li><a href="#">{% estimate_reading_time %} Minutes<i class="lnr lnr-clock"></i></a></li>
                                 </ul>
                                 <ul class="social-links">
                                     <li><a href="#"><i class="fa fa-facebook"></i></a></li>
