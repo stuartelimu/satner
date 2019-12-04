@@ -8,6 +8,53 @@ from .models import Post, Category, Comment
 from .forms import CommentForm
 from marketing.forms import NewsLetterSignUpForm
 
+import bs4
+import requests
+
+
+WPM = 200
+WORD_LENGTH = 5
+
+def extract_text(url):
+    html = requests.get(url).content
+    soup = bs4.BeautifulSoup(html, 'html.parser')
+    texts = soup.findAll(text=True)
+    return texts
+
+def is_visible(element):
+    if element.parent.name in ['style', 'script', '[document]', 'head', 'title']:
+        return False
+    elif isinstance(element, bs4.element.Comment):
+        return False
+    elif element.string == "\n":
+        return False
+    return True
+
+def filter_visible_text(page_texts):
+    return filter(is_visible, page_texts)
+
+def count_words_in_text(text_list, word_length):
+    total_words = 0
+    for current_text in text_list:
+        total_words += len(current_text)/word_length
+    return total_words
+
+def estimate_reading_time(url):
+    texts = extract_text(url)
+    filtered_text = filter_visible_text(texts)
+    total_words = count_words_in_text(filtered_text, WORD_LENGTH)
+    return total_words/WPM
+
+def get_article_reading_time(request):
+    object_list = Post.objects.all().order_by('-created_on')
+    for obj in object_list:
+        # my_post = get_object_or_404(Post, id=1, status='published')
+        post_url = request.build_absolute_uri(obj.get_absolute_url())
+        reading_time = round(estimate_reading_time(post_url))
+        return({obj.pk: reading_time})
+
+
+
 class PostListView(ListView):
     model = Post
     context_object_name = 'posts'
@@ -31,8 +78,9 @@ class PostDetailView(FormMixin, HitCountDetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
+        context['reading_time'] = round(estimate_reading_time(self.request.build_absolute_uri(self.object.get_absolute_url())))
         context['comments'] = Comment.objects.filter(active=True, post=self.object)
-        context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
+        # context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['categories'] = Category.objects.all()
         context['form'] = NewsLetterSignUpForm()
         return context
@@ -72,6 +120,9 @@ class CategoryListView(ListView):
         context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['form'] = NewsLetterSignUpForm()
         return context
+
+
+
     
     
 
