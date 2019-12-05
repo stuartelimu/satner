@@ -40,11 +40,11 @@ def count_words_in_text(text_list, word_length):
     return total_words
 
 @register.simple_tag(takes_context=True)
-def estimate_reading_time(context):
+def estimate_reading_time(context, url):
     request = context['request']
-    url = context['post'].get_absolute_url()
+    # url = context['post'].get_absolute_url()
     post_url = request.build_absolute_uri(url)
     texts = extract_text(post_url)
     filtered_text = filter_visible_text(texts)
     total_words = count_words_in_text(filtered_text, WORD_LENGTH)
-    return round(total_words/WPM)
+    return total_words/WPM

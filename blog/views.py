@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, FormView
 from hitcount.views import HitCountDetailView
@@ -46,6 +47,20 @@ def estimate_reading_time(url):
 #         post_url = request.build_absolute_uri(obj.get_absolute_url())
 #         reading_time = round(estimate_reading_time(post_url))
 #         return({obj.pk: reading_time})
+
+def search(request):
+    queryset = Post.objects.all()
+    query = request.GET.get('q')
+    if query:
+        queryset = queryset.filter(
+            Q(title__icontains=query)
+        ).distinct()
+
+    context = {
+        'queryset': queryset
+    }
+
+    return render(request, 'blog/search_results.html', context=context)
 
 
 
