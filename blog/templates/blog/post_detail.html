@@ -94,7 +94,7 @@
                             <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
                                 {% if post.previous_post %}
                                 <div class="thumb">
-                                    <a href="{% url 'post-detail' post.previous_post.slug %}"><img class="img-fluid" src="{{post.previous_post.thumbnail}}" alt=""></a>
+                                    <a href="{% url 'post-detail' post.previous_post.slug %}"><img class="img-fluid" src="{{post.previous_post.thumbnail.url}}" style="width: 80px; height: 50px;" alt=""></a>
                                 </div>
                                 <div class="arrow">
                                     <a href="{% url 'post-detail' post.previous_post.slug %}"><span class="lnr text-white lnr-arrow-left"></span></a>
@@ -115,7 +115,7 @@
                                     <a href="{% url 'post-detail' post.next_post.slug %}"><span class="lnr text-white lnr-arrow-right"></span></a>
                                 </div>
                                 <div class="thumb">
-                                    <a href="{% url 'post-detail' post.next_post.slug %}"><img class="img-fluid" src="{{post.next_post.thumbnail}}" alt=""></a>
+                                    <a href="{% url 'post-detail' post.next_post.slug %}"><img class="img-fluid" style="width: 80px; height: 50px;" src="{{post.next_post.thumbnail.url}}" alt=""></a>
                                 </div>	
                                 {% endif %}							
                             </div>									
