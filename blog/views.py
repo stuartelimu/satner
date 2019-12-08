@@ -9,7 +9,11 @@ from .models import Post, Category, Comment
 from .forms import CommentForm
 from marketing.forms import NewsLetterSignUpForm
 
+import bs4
+import requests
 
+WPM = 200
+WORD_LENGTH = 5
 
 def extract_text(url):
     html = requests.get(url).content
@@ -41,12 +45,18 @@ def estimate_reading_time(url):
     total_words = count_words_in_text(filtered_text, WORD_LENGTH)
     return total_words/WPM
 
-# def get_article_reading_time(request):
-#     object_list = Post.objects.all().order_by('-created_on')
-#     for obj in object_list:
-#         post_url = request.build_absolute_uri(obj.get_absolute_url())
-#         reading_time = round(estimate_reading_time(post_url))
-#         return({obj.pk: reading_time})
+# print(estimate_reading_time('http://127.0.0.1:8000/blog/test/'))
+# article_reading_time = request.session.get(post.slug)
+
+def get_article_reading_time():
+    object_list = Post.objects.all().order_by('-created_on')
+    for obj in object_list:
+        post_url = "http://127.0.0.1:8000/blog/test/"
+        print("ellp")
+        reading_time = round(estimate_reading_time(post_url))
+        return({obj.pk: reading_time})
+
+# print(get_article_reading_time())
 
 def search(request):
     queryset = Post.objects.all()
@@ -69,9 +79,18 @@ class PostListView(ListView):
     context_object_name = 'posts'
     queryset = Post.objects.all().order_by('-created_on')
     paginate_by = 6
+    
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
+        reading_times = {}
+        for obj in self.get_queryset():
+            post_url = self.request.build_absolute_uri(obj.get_absolute_url())
+            reading_times[obj.slug] = estimate_reading_time(post_url)
+            self.request.session[obj.slug] = estimate_reading_time(post_url)
+
+        print(reading_times)
+        # context['reading_times'] = reading_times
         context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['categories'] = Category.objects.all()
         context['form'] = NewsLetterSignUpForm()
@@ -87,7 +106,7 @@ class PostDetailView(FormMixin, HitCountDetailView):
 
     def get_context_data(self, **kwargs):
         context = super(PostDetailView, self).get_context_data(**kwargs)
-        # context['reading_time'] = round(estimate_reading_time(self.request.build_absolute_uri(self.object.get_absolute_url())))
+        context['reading_time'] = estimate_reading_time(self.request.build_absolute_uri(self.object.get_absolute_url()))
         context['comments'] = Comment.objects.filter(active=True, post=self.object)
         # context['popular_posts'] = Post.objects.order_by('-hit_count_generic__hits')[:4]
         context['categories'] = Category.objects.all()
