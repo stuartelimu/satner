@@ -25,7 +25,9 @@
     <section class="contact_area section_gap">
         <div class="container">
             <div class="row">
+                    {% comment %}
                 <div class="col-lg-3">
+                    
                     <div class="contact_info">
                         <div class="info_item">
                             <i class="lnr lnr-home"></i>
@@ -43,7 +45,9 @@
                             <p>Send us your query anytime!</p>
                         </div>
                     </div>
+                    
                 </div>
+                {% endcomment %}
                 <div class="col-lg-9">
                     <form class="row contact_form" action="." method="post" id="contactForm" novalidate="novalidate">
                         {% csrf_token %}
